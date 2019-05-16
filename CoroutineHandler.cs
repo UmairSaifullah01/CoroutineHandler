@@ -138,6 +138,10 @@ namespace UMGS
         public static Coroutine AfterWait (this MonoBehaviour Obj, Action action, Func<bool> condition)
         {
             return CoroutineHandler.AfterWait (Obj, action, condition);
+        } 
+        public static Coroutine WaitLoop (this MonoBehaviour Obj, Action action, Func<bool> condition, float seconds = 0, bool realTime = false)
+        {
+            return CoroutineHandler.WaitLoop(Obj,action,condition,seconds,realTime);
         }
     }
     #endregion
