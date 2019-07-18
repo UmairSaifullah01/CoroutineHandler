@@ -67,15 +67,15 @@ namespace UMGS
         }
         #endregion
         #region AfterWait for multipule functions
-        public static Coroutine AfterWait (bool realTime = false, params CoroutineSequence[] sequences)
+        public static Coroutine AfterWait (params CoroutineSequence[] sequences)
         {
-            return Instance.StartCoroutine (AfterWaitCoroutine (realTime, sequences));
+            return Instance.StartCoroutine (AfterWaitCoroutine (sequences));
         }
-        public static Coroutine AfterWait (MonoBehaviour Obj, bool realTime = false, params CoroutineSequence[] sequences)
+        public static Coroutine AfterWait (MonoBehaviour Obj, params CoroutineSequence[] sequences)
         {
-            return Obj.StartCoroutine (AfterWaitCoroutine (realTime, sequences));
+            return Obj.StartCoroutine (AfterWaitCoroutine (sequences));
         }
-        private static IEnumerator AfterWaitCoroutine (bool realTime, CoroutineSequence[] sequences)
+        private static IEnumerator AfterWaitCoroutine (CoroutineSequence[] sequences)
         {
             foreach (var item in sequences)
             {
@@ -131,18 +131,19 @@ namespace UMGS
         {
             return CoroutineHandler.AfterWait (Obj, action, seconds, realTime);
         }
-        public static Coroutine AfterWait (this MonoBehaviour Obj, bool realTime = false, params CoroutineSequence[] sequences)
+        public static Coroutine AfterWait (this MonoBehaviour Obj, params CoroutineSequence[] sequences)
         {
-            return CoroutineHandler.AfterWait (Obj, realTime, sequences);
+            return CoroutineHandler.AfterWait (Obj, sequences);
         }
         public static Coroutine AfterWait (this MonoBehaviour Obj, Action action, Func<bool> condition)
         {
             return CoroutineHandler.AfterWait (Obj, action, condition);
-        } 
+        }
         public static Coroutine WaitLoop (this MonoBehaviour Obj, Action action, Func<bool> condition, float seconds = 0, bool realTime = false)
         {
-            return CoroutineHandler.WaitLoop(Obj,action,condition,seconds,realTime);
+            return CoroutineHandler.WaitLoop (Obj, action, condition, seconds, realTime);
         }
+
     }
     #endregion
     #region Classes for use
@@ -256,7 +257,35 @@ namespace UMGS
         }
     }
     #endregion
+    public class FlowBehaviour
+    {
+        private static FlowBehaviour instance;
+        private MonoBehaviour monobehaviour; private List<CoroutineSequence> sequences = new List<CoroutineSequence> ();
+        public static FlowBehaviour Builder (MonoBehaviour behaviour)
+        {
+            instance = new FlowBehaviour ();
+            instance.monobehaviour = behaviour;
+            return instance;
+        }
+        public Coroutine Start ()
+        {
+            return CoroutineHandler.AfterWait (monobehaviour, sequences.ToArray ());
+        }
+        public FlowBehaviour AfterWait (Action action, float seconds, bool realTime = false)
+        {
+            instance.sequences.Add (new CoroutineDelay (action, seconds, realTime));
+            return instance;
+        }
+        public FlowBehaviour AfterWait (Action action, Func<bool> condition)
+        {
+            instance.sequences.Add (new CoroutineCondition (action, condition));
+            return instance;
+        }
+        //public FlowBehaviour WaitLoop (Action action, Func<bool> condition, float seconds = 0, bool realTime = false)
+        //{
 
+        //}
+    }
     #region Timer
     public class TimeCounter : CoroutineDelay
     {
