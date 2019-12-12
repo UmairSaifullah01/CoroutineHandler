@@ -10,7 +10,7 @@ Disc:
 Create coroutines and call from any script other then MonoBehaviour scripts.
 ie. Call coroutines from  non monobehaviour scripts
 
-           CoroutineHandler.Instance.Start_Coroutine(AnyCoroutineFuction);
+           CoroutineHandler.Start_Coroutine(AnyCoroutineFuction);
 
 
 Flow Beahviour Usage :
