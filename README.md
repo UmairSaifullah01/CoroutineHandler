@@ -1,20 +1,23 @@
 # CoroutineHandler
-All useful functions to perform Coroutine in unity
+All useful functions to perform Coroutines in unity
+
+Dependencies 
+        https://github.com/UmairSaifullah01/GameDevUtils/blob/master/Singleton.cs
 
 <------------Usage-------------->
 
-1. Static Corrotines
+1. Static Coroutines
 
-Disc:
+Description:
 
 Create coroutines and call from any script other then MonoBehaviour scripts.
-ie. Call coroutines from  non monobehaviour scripts
+ie. Call coroutines from  non MonoBehaviour scripts
 
-           CoroutineHandler.Start_Coroutine(AnyCoroutineFuction);
+       CoroutineHandler.StartStaticCoroutine(AnyCoroutineFuction);
 
 
-Flow Beahviour Usage :
+Coroutine Builder Usage :
 
-           FlowBehaviour.Builder (this).AfterWait (any Action , wait).AfterWait (any other Action, wait).Start ());
+       CoroutineBuilder.Builder (this).AfterWait (any Action , wait).AfterWait (any other Action, wait).Run ();
 
 
