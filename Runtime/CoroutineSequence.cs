@@ -2,16 +2,17 @@
 using System.Collections;
 
 
-namespace GameDevUtils.Coroutine
+namespace THEBADDEST.Coroutines
 {
 
 
+	public delegate void CoroutineMethod();
 	[System.Serializable]
 	public abstract class CoroutineSequence
 	{
 
-		public    Action      action;
-		protected IEnumerator iterator;
+		public    CoroutineMethod action;
+		protected IEnumerator     iterator;
 
 
 		public abstract IEnumerator Behaviour();

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace GameDevUtils.Coroutine
+namespace THEBADDEST.Coroutines
 {
 
 
@@ -19,7 +19,7 @@ namespace GameDevUtils.Coroutine
 			this.mono = mono;
 		}
 
-		public void DoUpdate(Action action, float delay)
+		public void DoUpdate(CoroutineMethod action, float delay)
 		{
 			if (updateCoroutines.TryGetValue(delay, out UpdateData result))
 			{
@@ -35,7 +35,7 @@ namespace GameDevUtils.Coroutine
 			}
 		}
 
-		public void RemoveUpdate(Action action, float delayRegistor)
+		public void RemoveUpdate(CoroutineMethod action, float delayRegistor)
 		{
 			if (updateCoroutines.TryGetValue(delayRegistor, out UpdateData result))
 			{
