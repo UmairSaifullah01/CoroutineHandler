@@ -1,0 +1,29 @@
+{
+  "name": "com.thebaddest.coroutinehandler",
+  "displayName": "CoroutineHandler",
+  "version": "1.0.0",
+  "description": "CoroutineHandler is a class that manages and handles coroutines in Unity, allowing you to start, stop, and control them. It provides a simple interface for creating, stopping, and managing coroutines in your code.",
+  "keywords": [],
+  "samples": [
+    {
+      "displayName": "Sample",
+      "description": "Usage of CoroutineHandler",
+      "path": "Samples~"
+    }
+  ],
+  "relatedPackages": {},
+  "_upm": {
+    "changelog": ""
+  },
+  "documentationUrl": "https://github.com/UmairSaifullah01/CoroutineHandler",
+  "repository": {
+    "url": "https://github.com/UmairSaifullah01/CoroutineHandler.git",
+    "type": "git",
+    "revision": "a7dd0751db55cd55e3b336723fb51433c1de7244"
+  },
+  "author": {
+    "name": "Umair Saifullah",
+    "email": "umairsaifullah01@gmail.com",
+    "url": "https://github.com/UmairSaifullah01"
+  }
+}

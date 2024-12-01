@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace GameDevUtils.Coroutine
+namespace THEBADDEST.Coroutines
 {
 
 
@@ -16,7 +16,7 @@ namespace GameDevUtils.Coroutine
 		protected YieldInstruction iterator2;
 
 
-		public CoroutineDelay(Action m_action, float m_seconds, bool m_realTime = false)
+		public CoroutineDelay(CoroutineMethod m_action, float m_seconds, bool m_realTime = false)
 		{
 			action   = m_action;
 			seconds  = m_seconds;

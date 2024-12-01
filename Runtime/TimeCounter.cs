@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace GameDevUtils.Coroutine
+namespace THEBADDEST.Coroutines
 {
 
 
@@ -18,7 +18,7 @@ namespace GameDevUtils.Coroutine
 		private int                   startFrom = 0;
 		private IEnumerator           conditionIterator;
 
-		public TimeCounter(Action OnComplete, float m_seconds, int m_startFrom = 0, bool m_realTime = false) : base(OnComplete, m_seconds)
+		public TimeCounter(CoroutineMethod OnComplete, float m_seconds, int m_startFrom = 0, bool m_realTime = false) : base(OnComplete, m_seconds)
 		{
 			startFrom         =  m_startFrom;
 			seconds           += m_startFrom;
@@ -47,9 +47,9 @@ namespace GameDevUtils.Coroutine
 			seconds += plusSeconds;
 		}
 
-		public void Speed(int m_speed)
+		public void Speed(int speed)
 		{
-			speed = m_speed;
+			this.speed = speed;
 		}
 
 		public void Stop()
@@ -57,30 +57,23 @@ namespace GameDevUtils.Coroutine
 			CoroutineHandler.StopStaticCoroutine(coroutine);
 		}
 
-		public string Output(Format format = Format.minsecs)
+		public string ToString(Format format = Format.minsecs)
 		{
-			if (format == Format.minsecs)
-			{
-				int mints = (incr + 1) / 60;
-				int sec   = (incr + 1) % 60;
-				resultString = (mints).ToString("00") + " : " + (sec).ToString("00");
-			}
-			else if (format == Format.milesecesInverse)
-			{
-				int mints = (int) ((seconds - (incr + 1)) / 60);
-				int sec   = (int) ((seconds - (incr + 1)) % 60);
-				resultString = (mints).ToString("00") + " : " + (sec).ToString("00");
-			}
-			else if (format == Format.milisces)
-			{
-				resultString = (incr / 1000).ToString("000");
-			}
-			else
-			{
-				resultString = incr.ToString("00");
-			}
+			var timeSpan = TimeSpan.FromSeconds(incr + 1);
 
-			return resultString;
+			switch (format)
+			{
+				case Format.minsecs:
+					return $"{timeSpan.Minutes:00}:{timeSpan.Seconds:00}";
+				case Format.milesecesInverse:
+					return $"{(int) ((seconds - (incr + 1)) * 1000):000}";
+				case Format.milisces:
+					return $"{(int) timeSpan.TotalMilliseconds:000}";
+				case Format.secs:
+					return $"{timeSpan.Seconds:00}";
+				default:
+					throw new ArgumentOutOfRangeException(nameof(format), format, null);
+			}
 		}
 
 		public override IEnumerator Behaviour()

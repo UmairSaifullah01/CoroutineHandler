@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 
-namespace GameDevUtils.Coroutine
+namespace THEBADDEST.Coroutines
 {
 
 
@@ -11,7 +11,7 @@ namespace GameDevUtils.Coroutine
 	public class CoroutineCondition : CoroutineSequence
 	{
 
-		public CoroutineCondition(Action m_action, Func<bool> m_condition)
+		public CoroutineCondition(CoroutineMethod m_action, Func<bool> m_condition)
 		{
 			action   = m_action;
 			iterator = new WaitUntil(m_condition);

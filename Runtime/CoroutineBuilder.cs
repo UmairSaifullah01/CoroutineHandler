@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace GameDevUtils.Coroutine
+namespace THEBADDEST.Coroutines
 {
 
 
@@ -25,13 +25,13 @@ namespace GameDevUtils.Coroutine
 			return CoroutineHandler.AfterWait(monobehaviour, sequences.ToArray());
 		}
 
-		public CoroutineBuilder AfterWait(Action action, float seconds, bool realTime = false)
+		public CoroutineBuilder AfterWait(CoroutineMethod action, float seconds, bool realTime = false)
 		{
 			instance.sequences.Add(new CoroutineDelay(action, seconds, realTime));
 			return instance;
 		}
 
-		public CoroutineBuilder AfterWait(Action action, Func<bool> condition)
+		public CoroutineBuilder AfterWait(CoroutineMethod action, Func<bool> condition)
 		{
 			instance.sequences.Add(new CoroutineCondition(action, condition));
 			return instance;
