@@ -14,11 +14,6 @@ namespace THEBADDEST.Coroutines
 	public class MonoRunner : MonoBehaviour
 	{
 
-		void Awake()
-		{
-			gameObject.hideFlags = HideFlags.HideInHierarchy;
-		}
-
 	}
 
 

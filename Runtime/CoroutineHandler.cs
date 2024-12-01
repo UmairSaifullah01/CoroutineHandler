@@ -9,7 +9,7 @@ namespace THEBADDEST.Coroutines
 	public class CoroutineHandler
 	{
 
-		static MonoRunner Instance;
+		static MonoRunner mono;
 		/// <summary>
 		/// Creates a new <see cref="MonoRunner"/> instance to run all coroutines on.
 		/// </summary>
@@ -31,9 +31,9 @@ namespace THEBADDEST.Coroutines
 		/// </remarks>
 		private void CreateMonoRunner()
 		{
-			GameObject monoRunnerObject = new GameObject("MonoRunner");
-			Instance=monoRunnerObject.AddComponent<MonoRunner>();
-			updator = new CoroutineUpdate(Instance);
+			GameObject monoRunnerObject = new GameObject("MonoRunner") { hideFlags = HideFlags.HideInHierarchy };
+			mono                 = monoRunnerObject.AddComponent<MonoRunner>();
+			updator = new CoroutineUpdate(mono);
 		}
 		#region Simple Corotine functions.......................
 		
@@ -45,7 +45,7 @@ namespace THEBADDEST.Coroutines
 		/// <returns>The coroutine that was started.</returns>
 		public static UnityEngine.Coroutine StartStaticCoroutine(IEnumerator coroutine)
 		{
-			return Instance.StartCoroutine(coroutine);
+			return mono.StartCoroutine(coroutine);
 		}
 
 /// <summary>
@@ -54,7 +54,7 @@ namespace THEBADDEST.Coroutines
 /// <param name="coroutine">The coroutine to stop.</param>
 		public static void StopStaticCoroutine(UnityEngine.Coroutine coroutine)
 		{
-			Instance.StopCoroutine(coroutine);
+			mono.StopCoroutine(coroutine);
 		}
 		
 
@@ -63,7 +63,7 @@ namespace THEBADDEST.Coroutines
 		/// </summary>
 		public static void StopAll()
 		{
-			Instance.StopAllCoroutines();
+			mono.StopAllCoroutines();
 		}
 
 		#endregion
@@ -75,19 +75,19 @@ namespace THEBADDEST.Coroutines
 
 		public static void DoUpdate(CoroutineMethod action, float delay = 0)
 		{
-			if (Instance)
+			if (mono)
 				updator.DoUpdate(action, delay);
 		}
 
 		public static void RemoveUpdate(CoroutineMethod action, float delay = 0)
 		{
-			if (Instance)
+			if (mono)
 				updator.RemoveUpdate(action, delay);
 		}
 
 		public static void StopUpdate(float delay = 0)
 		{
-			if (Instance)
+			if (mono)
 				updator.StopUpdate(delay);
 		}
 
@@ -106,7 +106,7 @@ namespace THEBADDEST.Coroutines
 		/// <returns>The coroutine that was started.</returns>
 		public static UnityEngine.Coroutine AfterWait(CoroutineMethod action, float seconds, bool realTime = false)
 		{
-			return Instance.StartCoroutine(AfterWaitCoroutine(action, seconds, realTime));
+			return mono.StartCoroutine(AfterWaitCoroutine(action, seconds, realTime));
 		}
 
 		/// <summary>
@@ -135,7 +135,7 @@ namespace THEBADDEST.Coroutines
 
 		public static UnityEngine.Coroutine AfterWait(params CoroutineSequence[] sequences)
 		{
-			return Instance.StartCoroutine(AfterWaitCoroutine(sequences));
+			return mono.StartCoroutine(AfterWaitCoroutine(sequences));
 		}
 
 		public static UnityEngine.Coroutine AfterWait(MonoBehaviour mono, params CoroutineSequence[] sequences)
@@ -158,7 +158,7 @@ namespace THEBADDEST.Coroutines
 
 		public static UnityEngine.Coroutine AfterWait(CoroutineMethod action, Func<bool> condition)
 		{
-			return Instance.StartCoroutine(AfterWaitCoroutine(action, condition));
+			return mono.StartCoroutine(AfterWaitCoroutine(action, condition));
 		}
 
 		public static UnityEngine.Coroutine AfterWait(MonoBehaviour mono, CoroutineMethod action, Func<bool> condition)
@@ -178,7 +178,7 @@ namespace THEBADDEST.Coroutines
 
 		public static UnityEngine.Coroutine WaitLoop(CoroutineMethod action, Func<bool> condition, float seconds = 0, bool realTime = false)
 		{
-			return Instance.StartCoroutine(WaitLoopCoroutine(action, condition, seconds, realTime));
+			return mono.StartCoroutine(WaitLoopCoroutine(action, condition, seconds, realTime));
 		}
 
 		public static UnityEngine.Coroutine WaitLoop(MonoBehaviour mono, CoroutineMethod action, Func<bool> condition, float seconds = 0, bool realTime = false)
