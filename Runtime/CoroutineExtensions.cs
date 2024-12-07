@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 
@@ -27,6 +28,11 @@ namespace THEBADDEST.Coroutines
 		public static UnityEngine.Coroutine WaitLoop(this MonoBehaviour mono, CoroutineMethod action, Func<bool> condition, float seconds = 0, bool realTime = false)
 		{
 			return CoroutineHandler.WaitLoop(mono, action, condition, seconds, realTime);
+		}
+
+		public static void RunIndependently(this IEnumerator enumerator)
+		{
+			CoroutineHandler.StartStaticCoroutine(enumerator);
 		}
 
 	}
