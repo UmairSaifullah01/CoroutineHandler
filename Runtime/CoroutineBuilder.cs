@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-
 
 namespace THEBADDEST.Coroutines
 {
@@ -10,36 +8,30 @@ namespace THEBADDEST.Coroutines
 	public class CoroutineBuilder
 	{
 
-		private static   CoroutineBuilder        instance;
-		private          MonoBehaviour           monobehaviour;
-		private readonly List<CoroutineSequence> sequences = new List<CoroutineSequence>();
+		readonly List<CoroutineSequence> sequences = new();
 
-		public static CoroutineBuilder Builder(MonoBehaviour behaviour)
+		public void Run()
 		{
-			instance = new CoroutineBuilder {monobehaviour = behaviour};
-			return instance;
-		}
-
-		public UnityEngine.Coroutine Run()
-		{
-			return CoroutineHandler.AfterWait(monobehaviour, sequences.ToArray());
+			CoroutineHandler.AfterWait(sequences.ToArray());
 		}
 
 		public CoroutineBuilder AfterWait(CoroutineMethod action, float seconds, bool realTime = false)
 		{
-			instance.sequences.Add(new CoroutineDelay(action, seconds, realTime));
-			return instance;
+			sequences.Add(new CoroutineDelay(action, seconds, realTime));
+			return this;
 		}
 
 		public CoroutineBuilder AfterWait(CoroutineMethod action, Func<bool> condition)
 		{
-			instance.sequences.Add(new CoroutineCondition(action, condition));
-			return instance;
+			sequences.Add(new CoroutineCondition(action, condition));
+			return this;
 		}
-		//public FlowBehaviour WaitLoop (Action action, Func<bool> condition, float seconds = 0, bool realTime = false)
-		//{
 
-		//}
+		public CoroutineBuilder WaitLoop(CoroutineMethod action, Func<bool> condition, float seconds = 0, bool realTime = false)
+		{
+			sequences.Add(new CoroutineLoop(action, condition, seconds, realTime));
+			return this;
+		}
 
 	}
 
