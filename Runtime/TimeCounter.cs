@@ -10,15 +10,14 @@ namespace THEBADDEST.Coroutines
 	public class TimeCounter : CoroutineDelay
 	{
 
-		private string                resultString;
-		private UnityEngine.Coroutine coroutine;
-		private bool                  isPlaying = true;
-		private int                   incr      = 0;
-		private int                   speed     = 1;
-		private int                   startFrom = 0;
-		private IEnumerator           conditionIterator;
+		private string      resultString;
+		private Coroutine   coroutine;
+		private bool        isPlaying = true;
+		private int         incr      = 0;
+		private int         startFrom = 0;
+		private IEnumerator conditionIterator;
 
-		public TimeCounter(CoroutineMethod OnComplete, float m_seconds, int m_startFrom = 0, bool m_realTime = false) : base(OnComplete, m_seconds)
+		public TimeCounter(CoroutineMethod OnComplete, float m_seconds, int m_startFrom = 0, bool m_realTime = false) : base(OnComplete, m_seconds, m_realTime)
 		{
 			startFrom         =  m_startFrom;
 			seconds           += m_startFrom;
@@ -47,30 +46,29 @@ namespace THEBADDEST.Coroutines
 			seconds += plusSeconds;
 		}
 
-		public void Speed(int speed)
-		{
-			this.speed = speed;
-		}
 
 		public void Stop()
 		{
 			CoroutineHandler.StopStaticCoroutine(coroutine);
 		}
 
-		public string ToString(Format format = Format.minsecs)
+		public string ToString(TimeFormat format = TimeFormat.MinutesSeconds)
 		{
 			var timeSpan = TimeSpan.FromSeconds(incr + 1);
-
 			switch (format)
 			{
-				case Format.minsecs:
+				case TimeFormat.MinutesSeconds:
 					return $"{timeSpan.Minutes:00}:{timeSpan.Seconds:00}";
-				case Format.milesecesInverse:
-					return $"{(int) ((seconds - (incr + 1)) * 1000):000}";
-				case Format.milisces:
-					return $"{(int) timeSpan.TotalMilliseconds:000}";
-				case Format.secs:
+
+				case TimeFormat.MillisecondsInverse:
+					return $"{(int)((seconds - (incr + 1)) * 1000):000}";
+
+				case TimeFormat.Milliseconds:
+					return $"{(int)timeSpan.TotalMilliseconds:000}";
+
+				case TimeFormat.Seconds:
 					return $"{timeSpan.Seconds:00}";
+
 				default:
 					throw new ArgumentOutOfRangeException(nameof(format), format, null);
 			}
@@ -89,15 +87,15 @@ namespace THEBADDEST.Coroutines
 			action.Invoke();
 		}
 
-		public enum Format
-		{
+	}
 
-			minsecs,
-			milisces,
-			milesecesInverse,
-			secs
+	public enum TimeFormat
+	{
 
-		}
+		MinutesSeconds,
+		Milliseconds,
+		MillisecondsInverse,
+		Seconds
 
 	}
 

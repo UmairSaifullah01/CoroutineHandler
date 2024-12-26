@@ -10,6 +10,14 @@ namespace THEBADDEST.Coroutines
 	public static class CoroutineExtensions
 	{
 
+		public static UnityEngine.Coroutine StartStaticCoroutine(this object o,IEnumerator enumerator)
+		{
+			return CoroutineHandler.StartStaticCoroutine(enumerator);
+		}
+		public static void StopStaticCoroutine(this object o,Coroutine coroutine)
+		{
+			CoroutineHandler.StopStaticCoroutine(coroutine);
+		}
 		public static UnityEngine.Coroutine AfterWait(this MonoBehaviour mono, CoroutineMethod action, float seconds, bool realTime = false)
 		{
 			return CoroutineHandler.AfterWait(mono, action, seconds, realTime);
