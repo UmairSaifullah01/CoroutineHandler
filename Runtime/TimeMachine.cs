@@ -15,7 +15,7 @@ namespace THEBADDEST.Coroutines
 		public int                             GameTime => gameTime;
 		public event EverySecondActionDelegate OnEverySecond;
 
-		public void Initialization()
+		public void Initialize()
 		{
 			gameTime=0;
 			CoroutineHandler.DoUpdate(Tick, 1);
